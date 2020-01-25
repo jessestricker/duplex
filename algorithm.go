@@ -75,6 +75,16 @@ func (a *Algorithm) Set(s string) error {
 	return fmt.Errorf("algorithm is unknown\ntry one of: %s", strings.Join(choices, ", "))
 }
 
+// FormatDigest returns a string representation of a hash's sum.
+// The bytes will be formatted using uppercase hexadecimal digits.
+// The resulting string will be left-padded with zeros to the
+// maximum length of the hashe's sums.
+func FormatDigest(hash hash.Hash) string {
+	byteCount := hash.Size()
+	bytes := hash.Sum(nil)
+	return fmt.Sprintf("%0*X", byteCount*2, bytes)
+}
+
 type algorithmInfo struct {
 	identifier string
 	name       string

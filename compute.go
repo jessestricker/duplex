@@ -92,7 +92,5 @@ func computeHash(filename string) (string, error) {
 		return "", fmt.Errorf("failed to compute hash: %w", err)
 	}
 
-	digest := hash.Sum(nil)
-	digestStr := fmt.Sprintf("%x", digest)
-	return digestStr, nil
+	return FormatDigest(hash), nil
 }
