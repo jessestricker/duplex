@@ -9,7 +9,7 @@ import (
 
 // command line default arguments
 const (
-	defaultAlgorithm = FNV1a
+	defaultAlgorithm = SHA1
 	defaultPattern   = "./*"
 )
 
