@@ -86,7 +86,7 @@ func findFiles(patterns []string) (Files, error) {
 
 func showGroups(groups FileGroups) error {
 	fmt.Println("Algorithm:", usedAlgorithm)
-	fmt.Println()
+	fmt.Println("Groups:")
 
 	for group, files := range groups {
 		groupSize := len(files)
@@ -96,9 +96,9 @@ func showGroups(groups FileGroups) error {
 
 		sort.Strings(files)
 
-		fmt.Printf("%v files, %v:\n", groupSize, group)
+		fmt.Printf("• %v files, %v:\n", groupSize, group)
 		for _, file := range files {
-			fmt.Printf("   %v\n", file)
+			fmt.Printf("    • %v\n", file)
 		}
 	}
 
