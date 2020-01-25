@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 )
 
 // command line default arguments
@@ -16,15 +17,22 @@ const (
 // command line parameters
 var (
 	usedAlgorithm = defaultAlgorithm
+	showAll       = false
 )
 
 func init() {
 	registerFlag(&usedAlgorithm, "algorithm", "a", "The algorithm to use for file content reduction.")
+	registerBoolFlag(&showAll, "showall", "s", "Show all files, even the unique ones.")
 }
 
 func registerFlag(value flag.Value, long, short, usage string) {
 	flag.Var(value, long, usage)
 	flag.Var(value, short, usage+" (shorthand)")
+}
+
+func registerBoolFlag(variable *bool, long, short, usage string) {
+	flag.BoolVar(variable, long, *variable, usage)
+	flag.BoolVar(variable, short, *variable, usage+" (shorthand)")
 }
 
 func main() {
@@ -77,11 +85,22 @@ func findFiles(patterns []string) (Files, error) {
 }
 
 func showGroups(groups FileGroups) error {
+	fmt.Println("Algorithm:", usedAlgorithm)
+	fmt.Println()
+
 	for group, files := range groups {
-		fmt.Println(group)
+		groupSize := len(files)
+		if groupSize < 2 && !showAll {
+			continue
+		}
+
+		sort.Strings(files)
+
+		fmt.Printf("%v files, %v:\n", groupSize, group)
 		for _, file := range files {
-			fmt.Printf("  %v\n", file)
+			fmt.Printf("   %v\n", file)
 		}
 	}
+
 	return nil
 }

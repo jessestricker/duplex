@@ -15,7 +15,7 @@ type Group struct {
 func (g Group) String() string {
 	s := g.size.String()
 	if len(g.hash) != 0 {
-		s += " (" + g.hash + ")"
+		s += ", " + g.hash
 	}
 	return s
 }
