@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/md5"
+	"crypto/sha1"
 	"crypto/sha256"
 	"crypto/sha512"
 	"fmt"
@@ -32,6 +33,7 @@ const (
 	MD5
 
 	// crypto-safe hashes
+	SHA1
 	SHA256
 	SHA512
 )
@@ -85,6 +87,7 @@ var algorithmInfos = map[Algorithm]algorithmInfo{
 	Adler32: {"adler32", "Adler-32", newAdler32},
 	FNV1a:   {"fnv1a", "FNV-1a (64 bit)", newFNV1a},
 	MD5:     {"md5", "MD5", md5.New},
+	SHA1:    {"sha1", "SHA-1", sha1.New},
 	SHA256:  {"sha256", "SHA-256", sha256.New},
 	SHA512:  {"sha512", "SHA-512", sha512.New},
 }
